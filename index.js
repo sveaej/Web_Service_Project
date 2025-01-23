@@ -5,8 +5,8 @@ This file creates a simple local web server.
 const http = require("http")
 const mongoose = require("mongoose");
 
-const User = require("./user");
-const Load = require("./load");
+const User = require("./models/user");
+const Load = require("./models/load");
 
 //Connect to the local mongoose database
 mongoose.connect("mongodb://localhost/eleoswsp");
