@@ -1,11 +1,12 @@
 const key = require("../platformkey");
 const userOps = require("../operations/userops");
 const jsend = require("../utils/jsend"); //not sure what this is
+
 //GET
 
 
 //POST
-app.post('/api/users', (req, res) => {
+app.post('/users', (req, res) => {
     //authenticate
     if (req.header.Eleos-Platform-Key != key) {
         return res.status(401).send(
@@ -15,4 +16,8 @@ app.post('/api/users', (req, res) => {
         );
     }
     //now do the stuff
+});
+
+app.get('/users', (req, res) => {
+    //stuff 
 });

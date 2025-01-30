@@ -2,15 +2,50 @@
 This file creates a simple local web server.
 */
 
-const http = require("http")
-const mongoose = require("mongoose");
+const express = require("express");
+const app = express();
+const port = 3000;
 
-const User = require("./models/user");
-const Load = require("./models/load");
+app.get('/', (req, res) => {
+    res.send("Hello world!");
+})
+
+app.listen(port, () => {
+    console.log(`App listening on port ${port}!`);
+})
+
+/*
+const http = require("http")
+
+//const mongoose = require("mongoose");
+//const express = require("express");
+
+//const User = require("./models/user");
+//const Load = require("./models/load");
 
 //Connect to the local mongoose database
-mongoose.connect("mongodb://localhost/eleoswsp");
+//mongoose.connect("mongodb://localhost/eleoswsp");
 
+//Create a server
+const server = http.createServer((req, res) => {
+    res.statusCode = 200;
+    res.setHeader('Content-type', 'text/plain');
+    res.write("Server response")
+    res.end();
+})
+
+server.listen((3000), () => {
+    console.log(`Server is running!`);
+})
+*/
+
+/*
+Okay, here are my questions
+
+*/
+
+//This is where I will put the endpoint stuff. I might want to divide my CRUD functions
+//into different files as well 
 
 /*
 run() 
@@ -33,20 +68,3 @@ async function run() {
     console.log(user);
 }
     */
-
-
-//Create a server
-
-const server = http.createServer((req, res) => {
-    res.statusCode = 200;
-    res.setHeader('Content-type', 'text/plain');
-    res.write("Server response")
-    res.end();
-})
-
-server.listen((3000), () => {
-    console.log(`Server is running!`);
-})
-
-//This is where I will put the endpoint stuff. I might want to divide my CRUD functions
-//into different files as well 
