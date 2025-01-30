@@ -6,8 +6,25 @@ const express = require("express");
 const app = express();
 const port = 3000;
 
+const authservice = require("./routes/authservice");
+const loadservice = require("./routes/loadservice");
+
+/*
 app.get('/', (req, res) => {
     res.send("Hello world!");
+})
+    */
+app.get('/authenticate/:token', (req, res) => {
+    //stuff goes here
+    //authservice.verifyLogin or something like that
+})
+
+app.post('/authenticate', (req, res) => {
+    //stuff goes here
+})
+
+app.get('/loads', (req, res) => {
+    //stuff goes here
 })
 
 app.listen(port, () => {
