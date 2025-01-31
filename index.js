@@ -16,15 +16,18 @@ app.get('/', (req, res) => {
     */
 app.get('/authenticate/:token', (req, res) => {
     //stuff goes here
+    res.send("This is the get request for authenticate/token!");
     //authservice.verifyLogin or something like that
 })
 
 app.post('/authenticate', (req, res) => {
     //stuff goes here
+    res.send("This is the post request for /authenticate!");
 })
 
 app.get('/loads', (req, res) => {
     //stuff goes here
+    res.send("This is the get request for /loads!");
 })
 
 app.listen(port, () => {
