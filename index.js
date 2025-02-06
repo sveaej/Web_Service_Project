@@ -6,14 +6,19 @@ const express = require("express");
 const app = express();
 const port = 3000;
 
-const authservice = require("./routes/authservice");
-const loadservice = require("./routes/loadservice");
+//const authservice = require("./routes/authservice");
+//const loadservice = require("./routes/loadservice");
+const Auth = require("./routes/authservice")
 
-app.get('/authenticate/:token', [authservice.loginUser]);
+app.get('/authenticate/:token', (req, res) => {
+   //Auth.loginUser(req, res);
+})
+//app.get('/authenticate/:token', [authservice.loginUser]);
 
 app.post('/authenticate', (req, res) => {
     //stuff goes here
-    res.send("This is the post request for /authenticate!");
+    //res.send("This is the post request for /authenticate!");
+    Auth.loginUser(req, res);
 })
 
 app.get('/loads', (req, res) => {

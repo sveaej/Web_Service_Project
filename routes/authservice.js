@@ -1,6 +1,6 @@
 const key = require("../platformkey");
 const mongoose = require("mongoose");
-const User = require("./models/user");
+const User = require("../models/user");
 //Connect to the database
 mongoose.connect("mongodb://localhost/eleoswsp");
 
