@@ -1,6 +1,8 @@
 const key = require("../platformkey");
 const mongoose = require("mongoose");
 const User = require("../models/user");
+const schema = User.schema;
+const userModel = mongoose.model('User', schema);
 //Connect to the database
 mongoose.connect("mongodb://localhost/eleoswsp");
 
@@ -10,16 +12,12 @@ exports.loginUser = (req, res) => {
     var token = "abcdefg"; //placeholder
     var response;
     //Find the user
-    User.findOneAndUpdate({username: req.query.username}, {api_token: token}, (error, results) => { //could throw errors
-        if (error) {
-            return res.status(400).json({error}); //I want to understand this syntax better
-        }
-        response = results;
-    })
+    const user = userModel.find({ username: req.query.username });
+    user.api_token = token;
     //Save the user
-    User.save();
+    
     //Send back the user
-    return res.json(response);
+    return res.json(user);
 };
 
 //AUTHENTICATE - GET
