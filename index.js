@@ -9,14 +9,10 @@ const port = 3000;
 const authservice = require("./routes/authservice");
 const loadservice = require("./routes/loadservice");
 
-/*
-app.get('/', (req, res) => {
-    res.send("Hello world!");
-})
-    */
 app.get('/authenticate/:token', (req, res) => {
     //stuff goes here
-    res.send("This is the get request for authenticate/token!");
+    authservice.loginUser(req, res);
+    //res.send("This is the get request for authenticate/token!");
     //authservice.verifyLogin or something like that
 })
 

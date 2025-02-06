@@ -5,26 +5,32 @@ const User = require("./models/user");
 mongoose.connect("mongodb://localhost/eleoswsp");
 
 //AUTHENTICATE - POST
-async function loginUser(req, res) {
+exports.loginUser = (req, res) => {
     //Generate a token
-    var token = "abcdefg" //placeholder
+    var token = "abcdefg"; //placeholder
     var response;
     //Find the user
-    await User.findOneAndUpdate({username: req.query.username}, {api_token: token}, (error, results) => { //could throw errors
+    User.findOneAndUpdate({username: req.query.username}, {api_token: token}, (error, results) => { //could throw errors
         if (error) {
-            res.status(400).json({error}); //I want to understand this syntax better
-            return false;
+            return res.status(400).json({error}); //I want to understand this syntax better
         }
         response = results;
     })
     //Save the user
-    await User.save();
+    User.save();
     //Send back the user
-    res.json(response);
-}
+    return res.json(response);
+};
 
 //AUTHENTICATE - GET
-function verifyLogin() {
+exports.verifyLogin = (req, res) => {
     //Search for the user by login token
-    //Get the user if user exists
-}
+    User.find({api_token: req.path.token}, (error, results) => {
+        if (error) {
+            return res.status(400).json({error});
+        }
+        //Get the user if user exists
+        response = results;
+    });
+    return res.json(response);
+};
