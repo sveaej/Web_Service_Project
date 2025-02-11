@@ -11,23 +11,16 @@ const userSchema = new mongoose.Schema({
     full_name: {
         type: String,
         required: true,
-        minLength: 1,
+        minLength: 1
     },
     api_token: {
         type: String,
         required: true,
-        minLength: 1,
-        //I could add a default where this is automatically generated in here
+        minLength: 1
     },
     web_token: {
         type: String,
-        required: true,
-        /*
-        validate: {
-            validator: v => v == null | v.length > 0 === 0,
-            message: "String must either be null or non-empty."
-        },
-        */
+        required: true
     },
     billing_code: {
         type: String,
@@ -41,20 +34,10 @@ const userSchema = new mongoose.Schema({
     billing_description: String,
     billing_type: {
         type: String,
-        enum: ['monthly', 'per-load'],
+        enum: ['monthly', 'per-load']
     },
     menu: {
-        type: {},
-        //Do I have to do this validation later?
-        validate: {
-            validator: function(v) {
-                if(this.menu_code) {
-                    return true;
-                }
-                return v;
-            },
-            message: "Menu is required if menu_code is not defined"
-        }
+        type: {}
     },
     menu_code: {
         type: String,
@@ -70,13 +53,10 @@ const userSchema = new mongoose.Schema({
     },
     dashboard: {
         type: {},
-        //required: v => dashboard_code === 0,
-        //Same rules as menu and menu code
     },
     dashboard_code: { 
         type: String,
-        //required: v => dashboard === 0,
-        //this would probably be an enum for all the division options that my fake company has
+        required: true
     },
     custom_settings_form_code: String,
     telematics: {},

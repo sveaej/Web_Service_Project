@@ -2,32 +2,33 @@
 This file creates a simple local web server.
 */
 
-const express = require("express");
-const app = express();
-const port = 3000;
-
-//const authservice = require("./routes/authservice");
-//const loadservice = require("./routes/loadservice");
+const express = require("express")
 const Auth = require("./routes/authservice")
+const Loads = require("./routes/loadservice")
+
+const app = express()
+const port = 3000
+
+app.use(express.urlencoded({extended: true}))
 
 app.get('/authenticate/:token', (req, res) => {
-   //Auth.loginUser(req, res);
+    //res.send("This is the get request for /authenticate!")
+    Auth.verifyLogin(req, res)
+    //req.params.token
 })
-//app.get('/authenticate/:token', [authservice.loginUser]);
 
 app.post('/authenticate', (req, res) => {
-    //stuff goes here
     //res.send("This is the post request for /authenticate!");
-    Auth.loginUser(req, res);
+    Auth.loginUser(req, res)
 })
 
 app.get('/loads', (req, res) => {
     //stuff goes here
-    res.send("This is the get request for /loads!");
+    res.send("This is the get request for /loads!")
 })
 
 app.listen(port, () => {
-    console.log(`App listening on port ${port}!`);
+    console.log(`App listening on port ${port}!`)
 })
 
 /*
