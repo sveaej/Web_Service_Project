@@ -7,8 +7,22 @@ mongoose.connect("mongodb://localhost/eleoswsp");
 
 //AUTHENTICATE - POST
 exports.loginUser = (req, res) => {
-    res.send(`The username is ${req.body.username}`)
-    //Generate a token
+    //res.send(`The username is ${req.body.username}`)
+    //Create a new token
+    var token = "123abc"
+    //Find the user by username
+    const user = User.findOne({username: req.body.username})
+    //return that user
+    var userJSON = user.toJSON() //doesn't work rn - ask ChatGPT how to convert user to JSON
+    res.send(userJSON)
+};
+
+//AUTHENTICATE - GET
+exports.verifyLogin = (req, res) => {
+    //res.send(`The login token is ${req.params.token}`)
+}
+
+//Generate a token
     /*
     var token = "abcdefg"; //placeholder
     var response;
@@ -20,12 +34,6 @@ exports.loginUser = (req, res) => {
     //Send back the user
     return res.json(user);
     */
-};
-
-//AUTHENTICATE - GET
-exports.verifyLogin = (req, res) => {
-    res.send(`The login token is ${req.params.token}`)
-}
 /*
 async function verifyLogin(req, res) {
 
