@@ -1,24 +1,24 @@
 const key = require("../platformkey");
 const mongoose = require("mongoose");
 const User = require("../models/user");
+const util = require("util");
 
 //Connect to the database
 mongoose.connect("mongodb://localhost/eleoswsp");
 
 //AUTHENTICATE - POST
-exports.loginUser = (req, res) => {
+exports.loginUser = async (req, res) => {
     //res.send(`The username is ${req.body.username}`)
     //Create a new token
     var token = "123abc"
     //Find the user by username
-    const user = User.findOne({username: req.body.username})
+    const user = await User.findOne({username: req.body.username}).lean()
     //return that user
-    var userJSON = user.toJSON() //doesn't work rn - ask ChatGPT how to convert user to JSON
-    res.send(userJSON)
+    res.json(user)
 };
 
 //AUTHENTICATE - GET
-exports.verifyLogin = (req, res) => {
+exports.verifyLogin = async (req, res) => {
     //res.send(`The login token is ${req.params.token}`)
 }
 
