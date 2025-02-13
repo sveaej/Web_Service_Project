@@ -1,7 +1,7 @@
 const key = require("../platformkey");
 const mongoose = require("mongoose");
 const User = require("../models/user");
-const util = require("util");
+//const util = require("util"); //for debugging
 
 //Connect to the database
 mongoose.connect("mongodb://localhost/eleoswsp");
@@ -13,13 +13,18 @@ exports.loginUser = async (req, res) => {
     var token = "123abc"
     //Find the user by username
     const user = await User.findOne({username: req.body.username}).lean()
+    //Update the token
     //return that user
     res.json(user)
 };
 
 //AUTHENTICATE - GET
 exports.verifyLogin = async (req, res) => {
-    //res.send(`The login token is ${req.params.token}`)
+    //Find the user by token
+    const user = await User.findOne({api_token: req.params.token}).lean()
+    //return that user
+    res.json(user)
+    //update this so that it can catch an error if user with that token does not exist
 }
 
 //Generate a token
