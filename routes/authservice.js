@@ -12,10 +12,12 @@ exports.loginUser = async (req, res) => {
     //Create a new token
     var token = "123abc"
     //Find the user by username
-    const user = await User.findOne({username: req.body.username}).lean()
+    const user = await User.findOne({username: req.body.username})
     //Update the token
+    user.api_token = token;
+    await user.save();
     //return that user
-    res.json(user)
+    res.json(user.toJSON())
 };
 
 //AUTHENTICATE - GET
@@ -26,35 +28,3 @@ exports.verifyLogin = async (req, res) => {
     res.json(user)
     //update this so that it can catch an error if user with that token does not exist
 }
-
-//Generate a token
-    /*
-    var token = "abcdefg"; //placeholder
-    var response;
-    //Find the user
-    const user = userModel.find({ username: req.query.username });
-    user.api_token = token;
-    //Save the user
-    
-    //Send back the user
-    return res.json(user);
-    */
-/*
-async function verifyLogin(req, res) {
-
-    
-    res.send(`The login token is ${req.params.token}`)
-    //Search for the user by login token
-    //const user = await User.findOne({ api_token: })
-    /*
-    User.find({api_token: req.path.token}, (error, results) => {
-        if (error) {
-            return res.status(400).json({error});
-        }
-        //Get the user if user exists
-        response = results;
-    });
-    return res.json(response);
-    
-}
-*/
