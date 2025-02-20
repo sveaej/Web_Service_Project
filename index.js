@@ -35,7 +35,8 @@ app.post('/authenticate', (req, res) => {
 })
 
 app.get('/loads', (req, res) => {
-    res.send("This is the get request for /loads!")
+    //res.send("This is the get request for /loads!")
+    Loads.getLoads(req, res)
 })
 
 app.listen(port, () => {

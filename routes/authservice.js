@@ -18,7 +18,7 @@ exports.loginUser = async (req, res) => {
     await user.save();
     //return that user
     res.json(user.toJSON())
-};
+}
 
 //AUTHENTICATE - GET
 exports.verifyLogin = async (req, res) => {
