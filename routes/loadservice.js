@@ -8,13 +8,15 @@ mongoose.connect("mongodb://localhost/eleoswsp");
 exports.getLoads = async (req, res) => {
     //access the token from the request 
     const token = req.headers["authorization"];
-    console.log(token);
-    //res.send("Cool stuff");
     //find all of the bridge entity items with that request
-    const assign = await Assign.findOne({user_token: token}).lean()
-    console.log(assign)
-
-    //list the loads that I found
-    res.send("Still cool");
-
+    const assigns = await Assign.find({user_token: token}).lean()
+    //Create an array of load_ids for querying
+    let idArr = [];
+    for (let i = 0; i < assigns.length; i++) {
+        idArr[i] = assigns[i].load_id;
+    }
+    //Get the loads referenced by the bridge entity
+    const loads = await Load.where("id").in(idArr).lean();
+    //Send the loads that I found
+    res.send(loads);
 }

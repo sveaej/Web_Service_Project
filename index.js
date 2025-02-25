@@ -16,12 +16,12 @@ app.use(express.urlencoded({extended: true}))
 app.use(function (req, res, next) {
     const auth = req.headers['eleos-platform-key']
     if (!auth) {
-        return res.status(401).json({error: "No authorization header!"})
+        return res.status(401).json({error: "No authorization header."})
     }
     else if (auth != key) {
         console.log(auth)
         console.log(key)
-        return res.status(401).json({error: "Authorization header value is incorrect!"})
+        return res.status(401).json({error: "Authorization header value is incorrect."})
     }
     next()
 })
@@ -35,7 +35,6 @@ app.post('/authenticate', (req, res) => {
 })
 
 app.get('/loads', (req, res) => {
-    //res.send("This is the get request for /loads!")
     Loads.getLoads(req, res)
 })
 
