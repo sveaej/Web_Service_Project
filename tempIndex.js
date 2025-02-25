@@ -3,11 +3,25 @@
 const mongoose = require("mongoose");
 const User = require("./models/user");
 const Load = require("./models/load");
-const LoadAssign = require("./models/loadAssign")
+const Assign = require("./models/assign");
 //const util = require("util"); //for debugging
 
 //Connect to the database
 mongoose.connect("mongodb://localhost/eleoswsp");
+
+uptownFunc()
+
+async function uptownFunc() {
+    
+    const assign = await Assign.create({load_id: "load2", user_token: "123abc"});
+    assign.save();
+    console.log("User created!");
+    
+    //const item = await LoadAssign.findOne({load_id: "load1"})
+    //const assign = await LoadAssign.find({user_token: "123abc"})
+}
+
+
 
 /*
 These are mongodb commands to be copied and pasted into the terminal, they don't actually run in here
