@@ -5,7 +5,7 @@ This file creates a simple local web server and receives API calls.
 const express = require("express");
 const Auth = require("./routes/authservice");
 const Loads = require("./routes/loadservice");
-const key = "testval";
+const key = require("./platformkey");
 
 const app = express();
 const port = 3000;
