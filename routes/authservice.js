@@ -9,32 +9,41 @@ mongoose.connect("mongodb://localhost/eleoswsp");
 
 //AUTHENTICATE - POST
 exports.loginUser = async (req, res) => {
-    //res.send(`The username is ${req.body.username}`)
-    //Create a new token
-    var token = "123abc"
     //validate the password first
-    console.log(`The password is ${req.body.password}\n`);
-    const login = await Password.findOne({username: req.body.username});
-    if (req.body.password == login.password) {
-        //User is authenticated
-        //Find the user by username
-        const user = await User.findOne({username: req.body.username})
-        //Update the token
-        user.api_token = token;
-        await user.save();
-        //return that user
-        return res.json(user.toJSON());
+    try {
+        const login = await Password.findOne({username: req.body.username});
+        if (req.body.password == login.password) {
+            //Find the user by username
+            const user = await User.findOne({username: req.body.username});
+            //return that user
+            return res.json(user.toJSON());
+        }
+        else {
+            return res.status(401).json({error: "Password is incorrect."});
+        }
     }
-    else {
-        return res.status(401).json({error: "Password is incorrect."});
+    catch (error) {
+        return res.status(400).json({error: "Bad request."});
     }
 }
 
 //AUTHENTICATE - GET
 exports.verifyLogin = async (req, res) => {
+    //Check that token exists
+    if (req.params.token == null) {
+        return res.status(400).json({error: "Token does not exist!"});
+    }
     //Find the user by token
-    const user = await User.findOne({api_token: req.params.token}).lean()
-    //return that user
-    res.json(user)
-    //update this so that it can catch an error if user with that token does not exist
+    try {
+        const user = await User.findOne({api_token: req.params.token}).lean();
+        if (user == null) {
+            return res.status(400).json({error: "User with that token does not exist."});
+        }
+        //return that user
+        return res.json(user);
+    }
+    catch(error) {
+        return res.status(400).json({error: "Bad request."});
+    }
+    
 }
