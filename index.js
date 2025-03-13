@@ -3,10 +3,17 @@ This file creates a simple local web server and receives API calls.
 */
 
 const express = require("express");
+const mongoose = require("mongoose");
 const Auth = require("./routes/authservice");
 const Loads = require("./routes/loadservice");
 //const key = require("./platformkey");
 const key = process.env.platformKey;
+
+//Connect to the database
+mongoose.connect(process.env.SRV, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+});
 
 const app = express();
 const port = 3000;
