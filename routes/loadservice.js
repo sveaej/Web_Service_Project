@@ -2,7 +2,9 @@ const key = require("../platformkey");
 const Load = require("../models/load");
 const Assign = require("../models/assign")
 const mongoose = require("mongoose");
-mongoose.connect("mongodb://localhost/eleoswsp");
+//mongoose.connect("mongodb://localhost/eleoswsp");
+mongoose.connect(process.env.SRV,{ useNewUrlParser: true, useUnifiedTopology: true });
+//var connection = mongoose.connection;
 
 //LOADS - GET
 exports.getLoads = async (req, res) => {

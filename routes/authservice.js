@@ -5,7 +5,9 @@ const Password = require("../models/password");
 //const util = require("util"); //for debugging
 
 //Connect to the database
-mongoose.connect("mongodb://localhost/eleoswsp");
+//mongoose.connect("mongodb://localhost/eleoswsp");
+mongoose.connect(process.env.SRV,{ useNewUrlParser: true, useUnifiedTopology: true });
+//var connection = mongoose.connection;
 
 //AUTHENTICATE - POST
 exports.loginUser = async (req, res) => {
