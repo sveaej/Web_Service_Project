@@ -13,7 +13,7 @@ const key = process.env.platformKey;
 mongoose.connect(process.env.SRV, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
-});
+}).then(console.log("Connected!"));
 
 const app = express();
 const port = 3000;
